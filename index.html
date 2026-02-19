@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cost per Use Dashboard</title>
+<style>
+body{
+  font-family: Arial;
+  margin:0;
+  padding:20px;
+  background: linear-gradient(135deg,#5f2c82,#49a09d);
+  color:#fff;
+}
+.container{
+  max-width:500px;
+  margin:auto;
+  background:rgba(255,255,255,0.1);
+  padding:20px;
+  border-radius:12px;
+}
+input,select,button{
+  width:100%;
+  padding:10px;
+  margin-top:10px;
+  border:none;
+  border-radius:6px;
+}
+button{
+  background:#00e0ff;
+  font-weight:bold;
+}
+.result{
+  margin-top:15px;
+  font-size:18px;
+  font-weight:bold;
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+<h2>Cost per Use Calculator</h2>
+
+<label>Item Cost (₹)</label>
+<input id="cost" type="number">
+
+<label>Usage Frequency</label>
+<select id="freq">
+<option value="week">Per Week</option>
+<option value="month">Per Month</option>
+<option value="year">Per Year</option>
+</select>
+
+<label>No. of Uses</label>
+<input id="uses" type="number">
+
+<label>Usage Period (Months)</label>
+<input id="months" type="number">
+
+<label>Maintenance per Month (₹)</label>
+<input id="maint" type="number">
+
+<button onclick="calc()">Calculate</button>
+
+<div class="result" id="output"></div>
+</div>
+
+<script>
+function calc(){
+let cost=+document.getElementById("cost").value;
+let uses=+document.getElementById("uses").value;
+let months=+document.getElementById("months").value;
+let maint=+document.getElementById("maint").value;
+let freq=document.getElementById("freq").value;
+
+let monthlyUses =
+freq==="week"?uses*4.33:
+freq==="year"?uses/12:
+uses;
+
+let totalUses = monthlyUses*months;
+let totalCost = cost+(maint*months);
+let cpu = totalCost/totalUses;
+
+document.getElementById("output").innerHTML =
+"Total Cost: ₹"+totalCost.toFixed(0)+"<br>"+
+"Total Uses: "+Math.round(totalUses)+"<br>"+
+"Cost per Use: ₹"+cpu.toFixed(2);
+}
+</script>
+
+</body>
+</htm>
